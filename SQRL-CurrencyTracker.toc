@@ -4,7 +4,7 @@
 ## Notes: Tracks changes in selected currency over time.
 ## Author: Skwerl
 ## IconTexture: Interface\AddOns\SQRL-CurrencyTracker\Images\TRABuffTrackerIconSmall.tga
-## SavedVariables: 
+## SavedVariables: SQRLCurrencyTrackerDB
 
 SQRL-CurrencyTracker.xml
 SQRL-CurrencyTracker.lua

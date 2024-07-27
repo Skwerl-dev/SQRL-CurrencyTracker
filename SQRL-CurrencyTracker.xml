@@ -3,9 +3,9 @@
     xsi:schemaLocation="http://www.blizzard.com/wow/ui/
                         https://raw.githubusercontent.com/Gethe/wow-ui-source/live/Interface/FrameXML/UI_shared.xsd">
 
-<!-- Frame to track the Timerunner's Advantage buff -->
+    <!-- Track the various wow currencies. Currently only tracks Bronze for Pandaria Remix.  -->
     <Frame name="CurrencyTracker" parent="UIParent" toplevel="true" enableMouse="true" movable="true" inherits="BackdropTemplate">
-        <Size x="220" y="110"/>
+        <Size x="280" y="40"/>
         <Anchors>
             <Anchor point="TOPLEFT"/>
         </Anchors>
@@ -14,7 +14,7 @@
                 <!-- Column Headers -->
                 <FontString name="$parentCol1Head" text="Currency" inherits="GameFontNormal">
                     <Anchors>
-                        <Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="2" y="-2"/>
+                        <Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="3" y="-3"/>
                     </Anchors>
                 </FontString>
                 <FontString name="$parentCol2Head" text="Gain" inherits="GameFontNormal">
@@ -29,26 +29,26 @@
                 </FontString>
                 <FontString name="$parentCol4Head" text="Total" inherits="GameFontNormal">
                     <Anchors>
-                        <Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="-2" y="-2"/>
+                        <Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="-3" y="-3"/>
                     </Anchors>
                 </FontString>
-                <!-- Currency 1 details -->
-                <FontString name="$parentCur1name" text="Bronze" inherits="GameFontNormal">
+                <!-- GoldBronze details -->
+                <FontString name="$parentBronze" text="Bronze" inherits="GameFontNormal">
                     <Anchors>
                         <Anchor point="TOPLEFT" relativeTo="$parentCol1Head" relativePoint="BOTTOMLEFT" x="0" y="-2"/>
                     </Anchors>
                 </FontString>
-                <FontString name="$parentCur1Gain" text="0" inherits="GameFontNormal">
+                <FontString name="$parentBronzeGain" text="0" inherits="GameFontNormal">
                     <Anchors>
                         <Anchor point="TOPRIGHT" relativeTo="$parentCol2Head" relativePoint="BOTTOMRIGHT" x="0" y="-2"/>
                     </Anchors>
                 </FontString>
-                <FontString name="$parentCur1Loss" text="-0" inherits="GameFontNormal">
+                <FontString name="$parentBronzeLoss" text="-0" inherits="GameFontNormal">
                     <Anchors>
                         <Anchor point="TOPRIGHT" relativeTo="$parentCol3Head" relativePoint="BOTTOMRIGHT" x="0" y="-2"/>
                     </Anchors>
                 </FontString>
-                <FontString name="$parentCur1Total" text="1" inherits="GameFontNormal">
+                <FontString name="$parentBronzeTotal" text="1" inherits="GameFontNormal">
                     <Anchors>
                         <Anchor point="TOPRIGHT" relativeTo="$parentCol4Head" relativePoint="BOTTOMRIGHT" x="0" y="-2"/>
                     </Anchors>
@@ -58,6 +58,72 @@
         <Scripts>
         <OnLoad>
             self:RegisterForDrag("LeftButton");
+            <!-- self:SetResizable(true);  -->
+            self:SetScript("OnDragStart", self.StartMoving);
+            self:SetScript("OnDragStop", self.StopMovingOrSizing);
+        </OnLoad>
+    </Scripts>
+    <!-- The Gold Frame. Gold is it's own beast, not part of the other currencies in WoW. This could be rolled up into the other group, 
+        but because it's the main "money" type, I'm going to treat it as a special case that I'm most interested in. -->
+    </Frame>
+     <Frame name="GoldTracker" parent="UIParent" toplevel="true" enableMouse="true" movable="true" inherits="BackdropTemplate">
+        <Size x="300" y="40
+        "/> 
+            <!-- <AbsDimension x="400" y="150"/>
+        </Size> -->
+        <Anchors>
+            <Anchor point="TOPLEFT"/>
+        </Anchors>
+        <Layers>
+            <Layer level="OVERLAY">
+                <!-- Column Headers -->
+                <FontString name="$parentGainCol" text="Gains" inherits="GameFontNormal">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="3" y="-3"/>
+                    </Anchors>
+                </FontString>
+                <FontString name="$parentLossCol" text="Loss" inherits="GameFontNormal">
+                    <Anchors>
+                        <Anchor point="TOPRIGHT" relativePoint="TOP" x="-35" y="-2"/>
+                    </Anchors>
+                </FontString>
+                <FontString name="$parentChangeCol" text="Change" inherits="GameFontNormal">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativePoint="TOP" x="20" y="-2"/>
+                    </Anchors>
+                </FontString>
+                <FontString name="$parentTotalCol" text="Total" inherits="GameFontNormal">
+                    <Anchors>
+                        <Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="-3" y="-3"/>
+                    </Anchors>
+                </FontString>
+                <!-- Gold details -->
+                <FontString name="$parentGain" text="0" inherits="GameFontNormal">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeTo="$parentGainCol" relativePoint="BOTTOMLEFT" x="0" y="-2"/>
+                    </Anchors>
+                </FontString>
+                <FontString name="$parentLoss" text="0" inherits="GameFontNormal">
+                    <Anchors>
+                        <Anchor point="TOPRIGHT" relativeTo="$parentLossCol" relativePoint="BOTTOMRIGHT" x="0" y="-2"/>
+                    </Anchors>
+                </FontString>
+                <FontString name="$parentChange" text="-0" inherits="GameFontNormal">
+                    <Anchors>
+                        <Anchor point="TOPRIGHT" relativeTo="$parentChangeCol" relativePoint="BOTTOMRIGHT" x="0" y="-2"/>
+                    </Anchors>
+                </FontString>
+                <FontString name="$parentTotal" text="0" inherits="GameFontNormal">
+                    <Anchors>
+                        <Anchor point="TOPRIGHT" relativeTo="$parentTotalCol" relativePoint="BOTTOMRIGHT" x="0" y="-2"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Scripts>
+        <OnLoad>
+            self:RegisterForDrag("LeftButton");
+            <!-- self:SetResizable(true);  -->
             self:SetScript("OnDragStart", self.StartMoving);
             self:SetScript("OnDragStop", self.StopMovingOrSizing);
         </OnLoad>
