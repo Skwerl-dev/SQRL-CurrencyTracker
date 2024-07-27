@@ -1,0 +1,10 @@
+## Interface: 110000
+## Version: 1.0.0
+## Title: Currency Tracker
+## Notes: Tracks changes in selected currency over time.
+## Author: Skwerl
+## IconTexture: Interface\AddOns\SQRL-CurrencyTracker\Images\TRABuffTrackerIconSmall.tga
+## SavedVariables: 
+
+SQRL-CurrencyTracker.xml
+SQRL-CurrencyTracker.lua
